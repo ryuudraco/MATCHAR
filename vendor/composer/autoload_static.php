@@ -4,12 +4,15 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit25babe59ed895166058a81c1052fcacd
+class ComposerStaticInit7d70478b484f5a629a212a3a96f0d046
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
+        '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
     );
@@ -30,7 +33,10 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
+            'Symfony\\Polyfill\\Iconv\\' => 23,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
             'Src\\' => 4,
@@ -42,14 +48,12 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
+            'Prophecy\\' => 9,
+            'PhpOption\\' => 10,
         ),
         'M' => 
         array (
             'Monolog\\' => 8,
-        ),
-        'I' => 
-        array (
-            'Interop\\Container\\' => 18,
         ),
         'F' => 
         array (
@@ -63,6 +67,7 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Lexer\\' => 22,
             'DeepCopy\\' => 9,
         ),
     );
@@ -86,9 +91,21 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
+        ),
+        'Symfony\\Polyfill\\Iconv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-iconv',
         ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
@@ -123,13 +140,17 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Prophecy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
+        ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
-        ),
-        'Interop\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/container-interop/container-interop/src/Interop/Container',
         ),
         'FastRoute\\' => 
         array (
@@ -137,7 +158,7 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
         ),
         'Egulias\\EmailValidator\\' => 
         array (
-            0 => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator',
+            0 => __DIR__ . '/..' . '/egulias/email-validator/src',
         ),
         'Dotenv\\' => 
         array (
@@ -147,6 +168,10 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Common\\Lexer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer',
+        ),
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
@@ -154,33 +179,11 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
     );
 
     public static $prefixesPsr0 = array (
-        'T' => 
-        array (
-            'Twig_' => 
-            array (
-                0 => __DIR__ . '/..' . '/twig/twig/lib',
-            ),
-        ),
         'P' => 
         array (
-            'Prophecy\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
-            ),
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
-            ),
-            'PhpOption\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
-            ),
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Common\\Lexer\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
             ),
         ),
     );
@@ -656,10 +659,10 @@ class ComposerStaticInit25babe59ed895166058a81c1052fcacd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit25babe59ed895166058a81c1052fcacd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit25babe59ed895166058a81c1052fcacd::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit25babe59ed895166058a81c1052fcacd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit25babe59ed895166058a81c1052fcacd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7d70478b484f5a629a212a3a96f0d046::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7d70478b484f5a629a212a3a96f0d046::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit7d70478b484f5a629a212a3a96f0d046::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit7d70478b484f5a629a212a3a96f0d046::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -2,7 +2,7 @@
 
 namespace Src\Services;
 
-use Interop\Container\ContainerInterface;
+use Slim\Container;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\App;
@@ -15,7 +15,7 @@ abstract class Service {
 	protected $response;
 	protected $url_params;
 
-	public function __construct(ContainerInterface $container, Request $request, Response $response, $params = [])
+	public function __construct(Container $container, Request $request, Response $response, $params = [])
 	{
 		$this->container = $container;
 

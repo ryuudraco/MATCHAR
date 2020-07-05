@@ -5,6 +5,7 @@ namespace Src\Services;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Src\Utils\Validator;
+use Src\Utils\DB;
 
 class BrowseService extends Service 
 {
@@ -13,7 +14,9 @@ class BrowseService extends Service
 	 */
 	public function viewPage()
 	{
-		return $this->render('browse.html');
+		$users = DB::select('select * from users');
+		$params = [ 'users' => $users ];
+		return $this->render('browse.html', $params);
 	}
 
 	/**
