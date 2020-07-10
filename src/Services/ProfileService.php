@@ -5,6 +5,7 @@ namespace Src\Services;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Src\Utils\Validator;
+use Src\Utils\DB;
 
 class ProfileService extends Service 
 {
@@ -13,7 +14,9 @@ class ProfileService extends Service
 	 */
 	public function viewPage()
 	{
-		return $this->render('profile.html');
+		$users = DB::select('select * from users');
+		$params = [ 'users' => $users ];
+		return $this->render('profile.html', $params);
 	}
 
 	/**

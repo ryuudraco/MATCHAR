@@ -14,14 +14,14 @@
       <div class="tab-content" id="nav-tabContent">
         <!-- All Members Cards -->
         <div class="tab-pane fade show active" id="browse-all" role="tabpanel" aria-labelledby="browse-all-tab">
-          <div class="card-deck row-cols-3">
+          <div class="card-deck row-cols-4">
             {% for user in users %}
               {% include 'layouts/card.html' %}
             {% endfor %}
           </div>
         <!-- All Female Cards -->
         <div class="tab-pane fade" id="browse-females" role="tabpanel" aria-labelledby="browse-females-tab">
-          <div class="card-deck row-cols-3">
+          <div class="card-deck row-cols-4">
             {% for user in users %}
               {% if user.gender_id == 0 %}
                 {% include 'layouts/card.html' %}
@@ -32,7 +32,7 @@
 
         <!-- All Male Cards -->
         <div class="tab-pane fade" id="browse-males" role="tabpanel" aria-labelledby="browse-males-tab">
-          <div class="card-deck row-cols-3">
+          <div class="card-deck row-cols-4">
             {% for user in users %}
               {% if user.gender_id == 1 %}
                 {% include 'layouts/card.html' %}

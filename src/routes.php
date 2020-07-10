@@ -47,8 +47,9 @@ $app->get('/verify/{token}', function (Request $request, Response $response, $pa
 ########################### MILESTONE 1 #######################################################
 
 # MY PROFILE ROUTES
-$app->get('/profile', function (Request $request, Response $response) {
-	echo '@todo - view my profile';die();
+$app->get('/profile', function (Request $request, Response $response, $params) use ($app) {
+	$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
+	return $service->viewPage();
 });
 $app->post('/profile', function (Request $request, Response $response) {
 	echo '@todo - update my profile';die();

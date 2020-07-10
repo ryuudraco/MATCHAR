@@ -1,7 +1,174 @@
 {% extends 'layouts/master.html' %}
 
 {% block body %}
-    <div>
+    <nav>
+        <!-- Profile Navigation Bar -->
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+            <a class="nav-item nav-link" id="edit-tab" data-toggle="tab" href="#edit" role="tab" aria-controls="edit" aria-selected="false">Edit</a>
+        </div>
         
-    </div>
+        <!-- Profile view -->
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="profile-tab" role="tabpanel" aria-labelledby="Profile">
+                <div class="container">
+                    <img src="..." class="" alt="Avatar">
+                    <div class="form-row">
+                        <div class="col-md-4 mb-3">
+                            <div class="form-group">
+                                <label for="username">Username: {{ user.username }}'s profile</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">Name: {{ user.first_name . user.last_name }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age: {{ user.age }}</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="biography">Biography: {{ user.biography }}</label>
+                            </div>
+                            <div class="form-group">
+                                <span class="form-text">Gender:
+                                {% if user.gender_id == 0 %}
+                                    Female
+                                {% elseif user.gender_id == 1 %}
+                                    Male
+                                {% else %}
+                                    Other
+                                {% endif %}
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="last_name">Sexual Preference: {{ user.preference }}</label>
+                            </div>
+                            {% if user.city != null %}
+                            <div class="form-group">
+                                <label for="city">City: {{ user.city }}</label>
+                            </div>
+                            {% endif %}
+                            {% if user.province != null %}
+                            <div class="form-group">
+                                <label for="province">Province: {{ user.province }}</label>  
+                            </div>
+                            {% endif %}
+                            {% if user.country != null %}
+                            <div class="form-group">
+                                <label for="country">Country: {{ user.country }}</label>     
+                            </div>
+                            {% endif %}
+                            {% if user.postal_code != null %}
+                            <div class="form-group">
+                                <label for="postal_code">Postal code: {{ user.postal_code }}</label>
+                            </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label for="likes">Likes: {{ user.likes }}</label>
+                            </div>
+                            <div class="float-left">
+                                <button type="submit" name="register" class="btn btn-primary">Like</button>
+                            </div>
+                            <div class="float-right">
+                                <button type="submit" name="register" class="btn btn-primary">Confirm Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile tab -->
+        {% if user.id == user.id %}
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="edit-tab" role="tabpanel" aria-labelledby="Edit">
+                <div class="container">
+                    <form method="post" id="form" action="/register">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" placeholder="Enter Your Username">
+                                    <small id="usernameHelp" class="form-text text-muted">This is your unique username shown to other members.</small>
+                                </div>
+                                <div class="form-group">
+                                   <span>If you would like to reset your password click <a href="/reset-password" target="_blank">here</a></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter Your email">
+                                    <small id="emailHelp" class="form-text text-muted">This is to keep you informed of updates and notifications.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="first_name">First name</label>
+                                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter Your first name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">Last name</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Your last name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="age">Age</label>
+                                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter Your age">
+                                </div>
+                                <div class="form-group">
+                                    <label for="biography">Biography</label>
+                                    <textarea type="text" class="form-control" id="biography" name="biography" placeholder="Enter Your biography"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-text">Select your gender</span>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="female" id="female" value="1">
+                                        <label class="form-check-label" for="gender_id">Female</label>
+                                      </div>
+                                      <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="male" id="male" value="2">
+                                        <label class="form-check-label" for="gender_id">Male</label>
+                                      </div>
+                                      <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="other" id="other" value="3">
+                                        <label class="form-check-label" for="gender_id">Other</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">Sexual Preference</label>
+                                    <input type="text" class="form-control" id="sexual_preference" name="sexual_preference" placeholder="Enter sexual preference">
+                                    <small id="preferenceHelp" class="form-text text-muted">Please enter either Both (if you're bisexual), Men (if you're interested in men) or Women (if you're interested in Women).</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter Your city">
+                                </div>
+                                <div class="form-group">
+                                    <label for="province">Province</label>
+                                    <input type="text" class="form-control" id="province" name="province" placeholder="Enter Your province">
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" placeholder="Enter Your country">
+                                </div>
+                                <div class="form-group">
+                                    <label for="postal_code">Postal code</label>
+                                    <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="Enter Your postal code">
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload Avatar</span>
+                                    </div>
+                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                </div>
+                                <div class="float-right">
+                                    <button type="submit" name="register" class="btn btn-primary">Confirm Changes</button>
+                                </div>
+                                {% if validation_errors is defined %}
+                                    {% for validation_results in validation_errors %}
+                                        <div>{{ validation_results }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                <div>
+            </div>
+        </div>
+        {% endif %}
+    </nav>
 {% endblock %}
