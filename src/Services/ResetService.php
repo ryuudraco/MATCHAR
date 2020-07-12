@@ -9,14 +9,14 @@ use Src\Utils\DB;
 use Src\Utils\Mail;
 use Src\Utils\Validator;
 
-class VerifyEmailService extends Service 
+class RegisterService extends Service 
 {
 	/**
 	 * Just render the register page
 	 */
 	public function viewPage()
 	{
-		return $this->render('verify-email.html');
+		return $this->render('reset-password.html');
 	}
 
 	/**
@@ -26,55 +26,48 @@ class VerifyEmailService extends Service
 	 */
 	public function handlePost() {
 		$fields = $this->input([
-			'username',
-			'email',
+			'password',
+			'password_confirm',
 		]);
 
 		$validation_result = Validator::validate($fields, [
-			'email' => 'required',
+			'password' => 'required|password|confirm',
 		]);
 
 		if ($validation_result !== true) {
 			$this->debug($validation_result);
-			return $this->render('verify-email.html', ['validation_errors' => $validation_result]);
+			return $this->render('reset-password.html', ['validation_errors' => $validation_result]);
 		}
 
 		# @todo - do a DB::select and see if the username or email already exists?
-		if ($fields.[email] == DB::select('users'.'email') {
-			
-		}
-
-		$verify_token = md5($fields['username'] . time() . rand());
 
 		$password = Crypt::hash($fields['password']);
 
 		DB::execute('
 			INSERT INTO users (
-				email, 
+				password, 
 				updated_at, 
-				verify_token, 
 			) 
-			VALUES (?, ?, ?, ?)', 
+			VALUES (?, ?, ?)', 
 			[
-				$fields['email'],
+				$password,
 				date('Y-m-d H:i:s'),
 				date('Y-m-d H:i:s'),
-				$verify_token,
 			]
 		);
 
 		Mail::send(
-			'Reset your password',
+			'Password has been changed',
 			[
 				'no-reply@dating-app.com' => 'Dating App - No Reply',
 			],
 			[
 				$fields['email'] => $fields['first_name'] . ' ' . $fields['last_name'],
 			],
-			'Please click this link to reset your password: http://' . $_SERVER['HTTP_HOST'] . '/verify/' . $verify_token
+			'Your password has been reset.'
 		);
 
-		return $this->render('home.html');
+		return $this->render('login.html');
 	}
 
 	public function handleVerify() {
@@ -82,6 +75,6 @@ class VerifyEmailService extends Service
 
 		DB::execute('UPDATE users SET verify_at = ? WHERE verify_token = ?', [date('Y-m-d H:i:s'), $verification_token]);
 
-		return $this->redirect('/home');
+		return $this->redirect('/login');
 	}
 }
