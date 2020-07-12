@@ -6,7 +6,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Src\Utils\Validator;
 
-class MessageService extends Service 
+class MessagesService extends Service 
 {
 	/**
 	 * Just render the messages page
