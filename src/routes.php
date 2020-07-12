@@ -89,7 +89,8 @@ $app->get('/browse', function (Request $request, Response $response) use ($app) 
 
 # RESET PASSWORD FEATURES
 $app->get('/reset-password', function (Request $request, Response $response) {
-	echo '@todo - view the page to request a password reset';
+	$service = new \Src\Services\BrowseService($app->getContainer(), $request, $response, $params);
+	return $service->viewPage();
 });
 $app->post('/reset-password', function (Request $request, Response $response) {
 	echo '@todo - submit the form to request a password and show thank you message';
