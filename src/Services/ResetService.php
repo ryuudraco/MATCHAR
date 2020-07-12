@@ -12,7 +12,7 @@ use Src\Utils\Validator;
 class RegisterService extends Service 
 {
 	/**
-	 * Just render the register page
+	 * Just render the reset-password page
 	 */
 	public function viewPage()
 	{
@@ -20,9 +20,9 @@ class RegisterService extends Service
 	}
 
 	/**
-	 * try register the user with their details.
-	 * if fail, render the registe page with the error
-	 * if success, send mail with validate link and show success page
+	 * try reset user's password.
+	 * if fail, render the reset-password page with the error
+	 * if success, show login page
 	 */
 	public function handlePost() {
 		$fields = $this->input([
@@ -38,8 +38,6 @@ class RegisterService extends Service
 			$this->debug($validation_result);
 			return $this->render('reset-password.html', ['validation_errors' => $validation_result]);
 		}
-
-		# @todo - do a DB::select and see if the username or email already exists?
 
 		$password = Crypt::hash($fields['password']);
 

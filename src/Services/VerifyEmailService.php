@@ -12,7 +12,7 @@ use Src\Utils\Validator;
 class VerifyEmailService extends Service 
 {
 	/**
-	 * Just render the register page
+	 * Just render the verify-email page
 	 */
 	public function viewPage()
 	{
@@ -20,9 +20,9 @@ class VerifyEmailService extends Service
 	}
 
 	/**
-	 * try register the user with their details.
-	 * if fail, render the registe page with the error
-	 * if success, send mail with validate link and show success page
+	 * try verify the email for the user.
+	 * if fail, render the verify-email page with the error
+	 * if success, send mail with reset-password link and show home page
 	 */
 	public function handlePost() {
 		$fields = $this->input([
@@ -40,42 +40,42 @@ class VerifyEmailService extends Service
 		}
 
 		# @todo - do a DB::select and see if the username or email already exists?
-		if ($fields.[email] == DB::select('users'.'email') {
-			
+		$users = DB::select('select * from users');
+		$email = [ 'email' => $users ];
+		if ($fields.[email] == $email) {
+			$verify_token = md5($fields['username'] . time() . rand());
+
+			$password = Crypt::hash($fields['password']);
+
+			DB::execute('
+				INSERT INTO users (
+					email, 
+					updated_at, 
+					verify_token, 
+				) 
+				VALUES (?, ?, ?, ?)', 
+				[
+					$fields['email'],
+					date('Y-m-d H:i:s'),
+					date('Y-m-d H:i:s'),
+					$verify_token,
+				]
+			);
+
+			Mail::send(
+				'Reset your password',
+				[
+					'no-reply@dating-app.com' => 'Dating App - No Reply',
+				],
+				[
+					$fields['email'] => $fields['first_name'] . ' ' . $fields['last_name'],
+				],
+				'Please click this link to reset your password: http://' . $_SERVER['HTTP_HOST'] . '/verify/' . $verify_token
+			);
+
+			return $this->render('home.html');
+			}	
 		}
-
-		$verify_token = md5($fields['username'] . time() . rand());
-
-		$password = Crypt::hash($fields['password']);
-
-		DB::execute('
-			INSERT INTO users (
-				email, 
-				updated_at, 
-				verify_token, 
-			) 
-			VALUES (?, ?, ?, ?)', 
-			[
-				$fields['email'],
-				date('Y-m-d H:i:s'),
-				date('Y-m-d H:i:s'),
-				$verify_token,
-			]
-		);
-
-		Mail::send(
-			'Reset your password',
-			[
-				'no-reply@dating-app.com' => 'Dating App - No Reply',
-			],
-			[
-				$fields['email'] => $fields['first_name'] . ' ' . $fields['last_name'],
-			],
-			'Please click this link to reset your password: http://' . $_SERVER['HTTP_HOST'] . '/verify/' . $verify_token
-		);
-
-		return $this->render('home.html');
-	}
 
 	public function handleVerify() {
 		$verification_token = $this->url_params['token'];
