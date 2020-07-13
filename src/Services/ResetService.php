@@ -26,11 +26,13 @@ class RegisterService extends Service
 	 */
 	public function handlePost() {
 		$fields = $this->input([
+            'email',
 			'password',
 			'password_confirm',
 		]);
 
 		$validation_result = Validator::validate($fields, [
+            'email' => 'required'
 			'password' => 'required|password|confirm',
 		]);
 
@@ -42,8 +44,9 @@ class RegisterService extends Service
 		$password = Crypt::hash($fields['password']);
 
 		DB::execute('
-			INSERT INTO users (
-				password, 
+			INSERT INTO password-reset (
+                email,
+                token, 
 				updated_at, 
 			) 
 			VALUES (?, ?, ?)', 
