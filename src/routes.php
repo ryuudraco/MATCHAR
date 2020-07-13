@@ -88,11 +88,11 @@ $app->get('/browse', function (Request $request, Response $response) use ($app) 
 ############################ MILESTONE 5 ##############################################################
 
 # RESET PASSWORD FEATURES
-$app->get('/reset-password', function (Request $request, Response $response) {
-	$service = new \Src\Services\BrowseService($app->getContainer(), $request, $response, $params);
+$app->get('/verify-email', function (Request $request, Response $response) {
+	$service = new \Src\Services\VerifyEmailService($app->getContainer(), $request, $response, $params);
 	return $service->viewPage();
 });
-$app->post('/reset-password', function (Request $request, Response $response) {
+$app->post('/verify-email', function (Request $request, Response $response) {
 	echo '@todo - submit the form to request a password and show thank you message';
 });
 $app->get('/reset-password/{hash}', function (Request $request, Response $response) {
