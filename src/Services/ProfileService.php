@@ -6,6 +6,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Src\Utils\Validator;
 use Src\Utils\DB;
+use Src\DAO\UserDAO;
 
 class ProfileService extends Service 
 {
@@ -14,8 +15,8 @@ class ProfileService extends Service
 	 */
 	public function viewPage()
 	{
-		$users = DB::select('select * from users');
-		$params = [ 'users' => $users ];
+		$user = UserDAO::fetch([$_SESSION['user_id']]);
+		$params = [ 'user' => $user ];
 		return $this->render('profile.html', $params);
 	}
 
