@@ -51,8 +51,9 @@ $app->get('/profile', function (Request $request, Response $response, $params) u
 	$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
 	return $service->viewPage();
 });
-$app->post('/profile', function (Request $request, Response $response) {
-	echo '@todo - update my profile';die();
+$app->post('/profile', function(Request $request, Response $response, $params) use($app) {
+	$service = new \Src\Services\EditProfileService($app->getContainer(), $request, $response, $params);
+	return $service->handlePost();
 });
 
 ########################### MILESTONE 2 ##########################################################
