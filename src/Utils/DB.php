@@ -73,4 +73,17 @@ class DB
 
 		return $statement->fetchAll();
 	}
+
+	/**
+	 * Other methods would do just fine, but the preference is to work with objects not arrays :)
+	 */
+	private function selectSqlClass($sql, $params, $clazz) {
+		$statement = $this->connection->prepare($sql);
+		$statement->execute($params);
+		return $statement->fetchAll(\PDO::FETCH_CLASS, $clazz);
+	}
+
+	public static function selectQuery($sql, $clazz, $params = []) {
+		return self::getInstance()->selectSqlClass($sql, $params, $clazz);
+	}
 }
