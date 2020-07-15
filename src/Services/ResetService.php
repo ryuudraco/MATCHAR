@@ -32,7 +32,7 @@ class RegisterService extends Service
 		]);
 
 		$validation_result = Validator::validate($fields, [
-            'email' => 'required'
+            'email' => 'required',
 			'password' => 'required|password|confirm',
 		]);
 

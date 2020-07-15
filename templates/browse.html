@@ -9,6 +9,7 @@
         <a class="nav-item nav-link active" id="browse-all-tab" data-toggle="tab" href="#browse-all" role="tab" aria-controls="browse-all" aria-selected="true">All</a>
         <a class="nav-item nav-link" id="browse-females-tab" data-toggle="tab" href="#browse-females" role="tab" aria-controls="browse-females" aria-selected="false">Females</a>
         <a class="nav-item nav-link" id="browse-males-tab" data-toggle="tab" href="#browse-males" role="tab" aria-controls="browse-males" aria-selected="false">Males</a>
+        <a class="nav-item nav-link" id="browse-others-tab" data-toggle="tab" href="#browse-others" role="tab" aria-controls="browse-others" aria-selected="false">Others</a>
       </div>
       
       <div class="tab-content" id="nav-tabContent">
@@ -39,6 +40,15 @@
               {% endif %}
             {% endfor %}
           </div>
+
+          <div class="tab-pane fade" id="browse-others" role="tabpanel" aria-labelledby="browse-others-tab">
+            <div class="card-deck row-cols-4">
+              {% for user in users %}
+                {% if user.gender_id == 2 %}
+                  {% include 'layouts/card.html' %}
+                {% endif %}
+              {% endfor %}
+            </div>
 
         </div>
       </div>
