@@ -59,8 +59,9 @@ $app->post('/profile', function(Request $request, Response $response, $params) u
 ########################### MILESTONE 2 ##########################################################
 
 # MEMBER PROFILES
-$app->get('/profile/{username}', function (Request $request, Response $response, $params) {
-	echo '@todo - view this user profile';
+$app->get('/profile/{username}', function (Request $request, Response $response, $params) use ($app) {
+	$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
+	return $service->viewPage();
 });
 $app->post('/profile/{username}/like', function (Request $request, Response $response, $params) {
 	echo '@todo - view this user profile';
