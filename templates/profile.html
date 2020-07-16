@@ -19,16 +19,18 @@
             <li class="nav-item">
                 <a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</a>
             </li>
+            {% if user.id == USER_ID %}
             <li class="nav-item">
                 <a class="nav-link" id="pills-edit-tab" data-toggle="pill" href="#pills-edit" role="tab" aria-controls="pills-edit" aria-selected="false">Edit</a>
             </li>
+            {% endif %}
         </ul>
         
         <!-- Profile view -->
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                 <div class="container">
-                    <img src="..." class="" alt="Avatar">
+                    <img src="/{{ user.avatar_image }}" class="" alt="Avatar">
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
@@ -93,11 +95,11 @@
         </div>
 
         <!-- Edit Profile tab -->
-        {% if user.id == user.id %}
+        {% if user.id == USER_ID %}
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade" id="pills-edit" role="tabpanel" aria-labelledby="pills-edit-tab">
                 <div class="container">
-                    <form method="post" id="form" action="/profile">
+                    <form method="post" id="form" action="/profile" enctype="multipart/form-data">
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
@@ -131,10 +133,10 @@
                                 </div>
                                 <div class="form-group">
                                     <span class="form-text">Select your gender</span>
-                                    <select class="form-control" id="gender" name="gender" placeholder="Select your gender" value="{{ user.gender }}">
-                                        <option>Female</option>
-                                        <option>Male</option>
-                                        <option>Other</option>
+                                    <select class="form-control" id="gender_id" name="gender_id" placeholder="Select your gender">
+                                        <option value="0" {% if user.gender_id == 0 %} selected {% endif %}>Female</option>
+                                        <option value="1" {% if user.gender_id == 1 %} selected {% endif %}>Male</option>
+                                        <option value="2" {% if user.gender_id == 2 %} selected {% endif %}>Other</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -167,7 +169,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupFileAddon01">Upload Avatar</span>
                                     </div>
-                                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                    <input type="file" class="form-control-file" id="avatar" name="avatar">
                                 </div>
                                 <div class="float-right">
                                     <button type="submit" name="edit-profile" class="btn btn-primary">Confirm Changes</button>
