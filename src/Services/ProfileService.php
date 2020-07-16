@@ -15,8 +15,13 @@ class ProfileService extends Service
 	 */
 	public function viewPage()
 	{
-		$user = UserDAO::fetch([$_SESSION['user_id']]);
-		$params = [ 'user' => $user ];
+		if($this->request->getAttribute('username') !== null && !empty($this->request->getAttribute('username'))) {
+			//we are actually viewing someone elses profile
+			$user = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
+		} else {
+			$user = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+		}
+		$params = ['user' => $user ];
 		return $this->render('profile.html', $params);
 	}
 
