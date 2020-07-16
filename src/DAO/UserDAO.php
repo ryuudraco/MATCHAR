@@ -7,13 +7,22 @@ use Src\Beans\UserBean;
 class UserDAO extends DB {
 
     public static function getAll(): Array {
-        $users = parent::selectQuery("select * from users", UserBean::class);
+        $users = parent::selectQuery("SELECT * FROM users", UserBean::class);
         return $users;
     }
 
-    public static function fetch(Array $param): UserBean {
-        $sql = "SELECT * FROM users WHERE ID = ?";
-        $users = parent::selectQuery($sql, UserBean::class, $param)[0];
+    public static function fetch(Array $param, String $field): ?UserBean {
+        
+        $sql = "SELECT * FROM users WHERE $field = ?";
+        $users = parent::selectQuery($sql, UserBean::class, $param);
+        if(count($users) > 0 ) {
+            return $users[0];
+        }
+        return null;
+    }
+
+    public static function getAllWhere(String $whereClause): Array {
+        $users = parent::selectQuery("SELECT * FROM users WHERE $whereClause", UserBean::class);
         return $users;
     }
 
@@ -51,7 +60,7 @@ class UserDAO extends DB {
 
 	private static function isDirty(Array $data) {
         $usrId = $_SESSION['user_id'];
-        $usr = self::fetch([$usrId]);
+        $usr = self::fetch([$usrId], 'ID');
 
         foreach($data as $field => $value) {
             $get = "get" . ucfirst($field);
