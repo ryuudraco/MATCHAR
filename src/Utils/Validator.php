@@ -2,6 +2,8 @@
 
 namespace Src\Utils;
 
+use Src\DAO\UserDAO;
+
 class Validator {
 	private $fields;
 	private $rules;
@@ -86,6 +88,13 @@ class Validator {
 					case 'last_name':
 						if (empty($field)) {
 							$this->addErrorMessage($key, $key, 'is required.');
+						}
+						break;
+					
+					case 'username_unique':
+						$bean = UserDAO::fetch([$field], 'username');
+						if(isset($bean) && $bean !== null) {
+							$this->addErrorMessage($key, $key . ' is not unique');
 						}
 				}
 			}
