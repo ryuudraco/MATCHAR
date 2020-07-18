@@ -6,5 +6,10 @@ create table `messages` (
 	`message` longtext not null, 
 
 	`created_at` timestamp null, 
-	`updated_at` timestamp null
+	`updated_at` timestamp null,
+
+	CONSTRAINT fk_origin_id 
+	foreign key(`origin_id`) references `users`(`id`) on delete cascade,
+	CONSTRAINT fk_target_id 
+	foreign key(`target_id`) references `users`(`id`) on delete cascade
 );

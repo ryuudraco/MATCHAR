@@ -27,5 +27,51 @@
               $('#myTab li:last-child a').tab('show')
             })
         </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+
+<script>
+
+    // loads of work required
+    //saving message into the db so we can display messages to user at a later date
+    //now it is emitting a message to all clients connected
+    //which is not a solution we want
+
+    //this is just a test so the socket works (and appending messages somewhat work).
+
+var socket = io.connect('//127.0.0.1:1337');
+
+socket.on('connect', function () {
+    console.log('connected');
+
+    socket.on('broadcast', function (data) {
+        $("#messages").append('<div>' + $("#chatmsg").val() + '</div>');
+    });
+
+    socket.on('disconnect', function () {
+        console.log('disconnected');
+    });
+});
+
+$("#chat").submit(function( event ) {
+    event.preventDefault();
+
+    var $form = $( this ),
+    term = $form.find( "#chatmsg" ).val(),
+    url = $form.attr( "action" );
+ 
+    // Send the data using post
+    var posting = $.post( url, { message: term } );
+    
+    // Put the results in a div
+    posting.done(function( data ) {
+        $("#messages").append('<div>' + $("#chatmsg").val() + '</div>');
+        $("#chatmsg").val('')
+    });
+})
+
+</script>
+
     </body>
 </html>

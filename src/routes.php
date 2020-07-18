@@ -71,8 +71,13 @@ $app->post('/profile/{username}/like', function (Request $request, Response $res
 
 # MESSAGES
 $app->get('/messages', function (Request $request, Response $response) use ($app) {
-	$service = new \Src\Services\MessagesService($app->getContainer(), $request, $response, $params);
+	$service = new \Src\Services\MessagesService($app->getContainer(), $request, $response);
 	return $service->viewPage();
+});
+
+$app->post('/messages', function (Request $request, Response $response) use ($app) {
+	$service = new \Src\Services\MessagesService($app->getContainer(), $request, $response);
+	return $service->test();
 });
 
 $app->get('/messages/{username}', function (Request $request, Response $response, $params) {
