@@ -45,8 +45,8 @@ abstract class Service {
 	{
 		$params = array_merge([
 			'ENV_APP_NAME' => getenv('APP_NAME'),
-			'USER_ID' => $_SESSION['user_id'],
-			'USER_NAME' => $_SESSION['username'],
+			'USER_ID' => (isset($_SESSION['user_id'])? $_SESSION['user_id'] : null),
+			'USER_NAME' => (isset($_SESSION['username'])? $_SESSION['username'] : null),
 		], $params);
 
 		return $this->view->render($this->response, $template, $params);

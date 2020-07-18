@@ -3,6 +3,7 @@
 namespace Src\DAO;
 use Src\Utils\DB;
 use Src\Beans\UserBean;
+use Src\Utils\Crypt;
 
 class UserDAO extends DB {
 
@@ -50,6 +51,13 @@ class UserDAO extends DB {
             //TODO: set up logger and log the exceptions (file or db)
             return false;
         }
+    }
+
+    //update password on separate function as it needs to be hashed than other data
+    public static function updatePassword(UserBean $user, String $password) {
+        $password = Crypt::hash($password);
+        $query = "UPDATE users SET password = :password WHERE id = " . $user->getId();
+        parent::execute($query, ['password' => $password]);
     }
 
 

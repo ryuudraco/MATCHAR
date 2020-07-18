@@ -83,7 +83,7 @@ $app->get('/messages/{username}', function (Request $request, Response $response
 
 # MEMBER LIST
 $app->get('/browse', function (Request $request, Response $response) use ($app) {
-	$service = new \Src\Services\BrowseService($app->getContainer(), $request, $response, $params);
+	$service = new \Src\Services\BrowseService($app->getContainer(), $request, $response);
 	return $service->viewPage();
 });
 
@@ -97,9 +97,19 @@ $app->get('/verify-email', function (Request $request, Response $response) {
 $app->post('/verify-email', function (Request $request, Response $response) {
 	echo '@todo - submit the form to request a password and show thank you message';
 });
-$app->get('/reset-password/{hash}', function (Request $request, Response $response) {
-	echo '@todo - view the reset password page';
+$app->get('/reset-password/{token}', function (Request $request, Response $response) use($app) {
+	$service = new \Src\Services\ResetService($app->getContainer(), $request, $response);
+	return $service->viewResetPage();
 });
-$app->post('/reset-password/{hash}', function (Request $request, Response $response) {
-	echo '@todo - reset the password and redirect to login page';
+$app->post('/reset-password/{token}', function (Request $request, Response $response) use($app) {
+	$service = new \Src\Services\ResetService($app->getContainer(), $request, $response);
+	return $service->handlePassChange();
+});
+$app->get('/request-password', function (Request $request, Response $response) use($app) {
+	$service = new \Src\Services\ResetService($app->getContainer(), $request, $response);
+	return $service->sendPassReset();
+});
+$app->post('/request-password', function (Request $request, Response $response) use($app) {
+	$service = new \Src\Services\ResetService($app->getContainer(), $request, $response);
+	return $service->handleRequestPost();
 });
