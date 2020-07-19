@@ -80,11 +80,15 @@
                             </div>
                             {% endif %}
                             <div class="form-group">
-                                <label for="likes">Likes: {{ user.likes }}</label>
+                                <label for="likes">Likes: {{ count }}</label>
                             </div>
-                            <div class="float-left">
-                                <button type="submit" name="register" class="btn btn-primary">Like</button>
-                            </div>
+                            {% if user.id != USER_ID %}
+                            <form method="post" id="form" action="/profile/{{user.username}}/like" >
+                                <div class="float-left">
+                                    <button type="submit" name="register" class="btn btn-primary">{% if liked == 1 %} Unlike {% elseif liked != 1 %} Like {% endif %}</button>
+                                </div>
+                            </form>
+                            {% endif %}
                             <div class="float-right">
                                 <button type="submit" name="message" class="btn btn-primary">Message</button>
                             </div>

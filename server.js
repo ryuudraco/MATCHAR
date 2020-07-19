@@ -32,7 +32,7 @@ io.on('connection', function (socket){
     var nb = 0;
 
     //logger.info('SocketIO > Connected socket ' + socket.id);
-    console.log('SocketIO > Connected socket ' + socket.i)
+    console.log('SocketIO > Connected socket ' + socket.id)
 
     socket.on('broadcast', function (message) {
         ++nb;

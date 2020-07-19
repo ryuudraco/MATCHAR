@@ -7,6 +7,7 @@ use Slim\Http\Response;
 use Src\Utils\Validator;
 use Src\Utils\DB;
 use Src\DAO\UserDAO;
+use Src\DAO\LikesDAO;
 
 class ProfileService extends Service 
 {
@@ -21,7 +22,18 @@ class ProfileService extends Service
 		} else {
 			$user = UserDAO::fetch([$_SESSION['user_id']], 'ID');
 		}
-		$params = ['user' => $user ];
+		$likes = LikesDAO::countAllUserReceivedLikes($user);
+		$myLike = LikesDAO::getLike($user, UserDAO::fetch([$_SESSION['user_id']], 'ID'));
+
+		//to display on a button whether profile was already liked or not
+		$liked = false;
+		if(empty($myLike)) {
+			$liked = false;
+		} else {
+			$liked = true;
+		}
+
+		$params = ['user' => $user, 'count' => $likes, 'liked' => $liked ];
 		return $this->render('profile.html', $params);
 	}
 
@@ -44,5 +56,14 @@ class ProfileService extends Service
 
 		# proceed with login
 		echo '@todo - login the user and take them to their profile';
+	}
+
+	public function giveALikeOrUnlike() {
+		$target = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
+		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+
+		LikesDAO::likeUnlikeProfile($target, $origin);
+
+		return $this->redirect('/profile/' . $target->getUsername());
 	}
 }

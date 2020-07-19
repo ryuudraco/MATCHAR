@@ -63,8 +63,9 @@ $app->get('/profile/{username}', function (Request $request, Response $response,
 	$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
 	return $service->viewPage();
 });
-$app->post('/profile/{username}/like', function (Request $request, Response $response, $params) {
-	echo '@todo - view this user profile';
+$app->post('/profile/{username}/like', function (Request $request, Response $response, $params) use ($app) {
+		$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
+		return $service->giveALikeOrUnlike();
 });
 
 ########################### MILESTONE 3 ##########################################################
@@ -117,4 +118,10 @@ $app->get('/request-password', function (Request $request, Response $response) u
 $app->post('/request-password', function (Request $request, Response $response) use($app) {
 	$service = new \Src\Services\ResetService($app->getContainer(), $request, $response);
 	return $service->handleRequestPost();
+});
+
+//factory route
+$app->get('/factory', function () {
+	$factory = new \Src\Factory\UserFactory();
+	return $factory->test();
 });
