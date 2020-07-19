@@ -80,7 +80,7 @@
                             </div>
                             {% endif %}
                             <div class="form-group">
-                                <label for="likes">Likes: {{ count }}</label>
+                                <label for="likes">Likes: {{ user.likes }}</label>
                             </div>
                             {% if user.id != USER_ID %}
                             <form method="post" id="form" action="/profile/{{user.username}}/like" >

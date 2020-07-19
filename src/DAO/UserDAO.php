@@ -4,11 +4,12 @@ namespace Src\DAO;
 use Src\Utils\DB;
 use Src\Beans\UserBean;
 use Src\Utils\Crypt;
+use Src\DAO\LikesDAO;
 
 class UserDAO extends DB {
 
     public static function getAll(): Array {
-        $users = parent::selectQuery("SELECT * FROM users", UserBean::class);
+        $users = parent::selectQuery("SELECT u.*, count(l.target_id) AS likes FROM likes AS l RIGHT JOIN users AS u ON u.id = target_id GROUP BY u.id, l.target_id;", UserBean::class);
         return $users;
     }
 
@@ -17,6 +18,8 @@ class UserDAO extends DB {
         $sql = "SELECT * FROM users WHERE $field = ?";
         $users = parent::selectQuery($sql, UserBean::class, $param);
         if(count($users) > 0 ) {
+            $likes = LikesDAO::countAllUserReceivedLikes($users[0]);
+            $users[0]->setLikes($likes);
             return $users[0];
         }
         return null;

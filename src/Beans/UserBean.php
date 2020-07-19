@@ -24,7 +24,8 @@ class UserBean {
     private $avatar_image;
     private $gender_id;
     private $created_at;
-    private $updated_at;
+	private $updated_at;
+	private $likes;
 
     public function getId(): ?int {
 		return $this->id;
@@ -192,6 +193,14 @@ class UserBean {
 
 	public function setUpdated_at(String $updated_at){
 		$this->updated_at = $updated_at;
+	}
+
+	public function setLikes(int $likes) {
+		$this->likes = $likes;
+	}
+
+	public function getLikes(): ?int {
+		return $this->likes;
 	}
     
 
