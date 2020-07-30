@@ -20,12 +20,19 @@
             </li>
         </ul>
 
+        <!-- if like json request == true -->
         <div class="alert alert-secondary" role="alert">
             Your profile has been liked!
         </div>
+        <!-- else if match json request (check if both users have liked each other) == true -->
+        <div class="alert alert-danger" role="alert">
+            You have matched with a user!
+        </div>
+        <!-- else if message json request == true -->
         <div class="alert alert-dark" role="alert">
             You have received a message!
         </div>
+        <!-- endif -->
 
         {% if USER_NAME is not empty %}
             <div class="nav-item dropdown">

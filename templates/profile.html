@@ -85,16 +85,19 @@
                             <div class="form-group">
                                 <label for="likes">Likes: {{ user.likes }}</label>
                             </div>
+                            <!-- <div class="form-group">
+                                <label for="fame_rating">Fame rating: {{ user.fame_rating }}</label>
+                            </div> -->
                             {% if user.id != USER_ID %}
                             <form method="post" id="form" action="/profile/{{user.username}}/like" >
                                 <div class="float-left">
                                     <button type="submit" name="register" class="btn btn-primary">{% if liked == 1 %} Unlike {% elseif liked != 1 %} Like {% endif %}</button>
                                 </div>
                             </form>
-                            {% endif %}
                             <div class="float-right">
                                 <button type="submit" name="message" class="btn btn-primary">Message</button>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -192,10 +195,24 @@
                         <div class="col-md-6 offset-md-3">
                             <h4>History</h4>
                             <ul class="timeline">
-                                <li>
-                                    <p class="float-right">21 March, 2014</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                                </li>
+                                <!-- for loop history chan -->
+                                    <!-- if user viewed profile -->
+                                    <li>
+                                        <p class="float-right">21 March, 2014</p>
+                                        <p>Your profile has been viewed by (person).</p>
+                                    </li>
+                                    <!-- else if user liked profile -->
+                                    <li>
+                                        <p class="float-right">21 March, 2014</p>
+                                        <p>Your profile has been liked by (person).</p>
+                                    </li>
+                                    <!-- else if user matches with you (both people like each other's profiles) -->
+                                    <li>
+                                        <p class="float-right">21 March, 2014</p>
+                                        <p>You have been matched with (person)</p>
+                                    </li>
+                                    <!-- endif -->
+                                <!-- endfor -->
                             </ul>
                         </div>
                     </div>
