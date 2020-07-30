@@ -21,12 +21,70 @@
         <ul class="float-right">
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" name="sortByAge" id="sortByAge" class="btn btn-secondary">Age</button>
+            <button type="button" name="sortByTags" id="sortByFame" class="btn btn-secondary">Fame</button>
             <button type="button" name="sortByLocation" id="sortByLocation" class="btn btn-secondary">Location</button>
             <button type="button" name="sortByTags" id="sortByLocation" class="btn btn-secondary">Tags</button>
           </div>
         </ul>
       </ul>
-    </nav>  
+    </nav>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Advanced Search
+      </button>
+      <div class="dropdown-menu dropdown-lg" aria-labelledby="dropdownMenuButton">
+        <section class="search-sec">
+            <div class="container">
+                <form action="#" method="post" novalidate="novalidate">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <select class="form-control search-slt" id="selectAgeRange">
+                                        <option>Select Age Range</option>
+                                        <option>1 year</option>
+                                        <option>2 years</option>
+                                        <option>3 years</option>
+                                        <option>4 years</option>
+                                        <option>5 years</option>
+                                        <option>6-10 years</option>
+                                    </select> 
+                                </div>
+                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <select class="form-control search-slt" id="selectFameRatingGap">
+                                        <option>Select Fame Rating Gap</option>
+                                        <option>1-20</option>
+                                        <option>21-40</option>
+                                        <option>41-60</option>
+                                        <option>61-80</option>
+                                        <option>81-90</option>
+                                        <option>100+</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter City">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter Province">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter Country">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter Interest">
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                    <button type="button" class="btn btn-primary wrn-btn">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+      </div>
+    </div> 
+    
       
       <div class="tab-content" id="pills-tabContent">
         <!-- All Members Cards -->
