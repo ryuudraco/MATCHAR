@@ -93,6 +93,9 @@
                                 <div class="float-left">
                                     <button type="submit" name="register" class="btn btn-primary">{% if liked == 1 %} Unlike {% elseif liked != 1 %} Like {% endif %}</button>
                                 </div>
+                                <div class="float-left">
+                                    <button type="submit" name="block" class="btn btn-primary">{% if blocked == 1 %} Unblock {% elseif blocked != 1 %} Block {% endif %}</button>
+                                </div>
                             </form>
                             <div class="float-right">
                                 <button type="submit" name="message" class="btn btn-primary">Message</button>
