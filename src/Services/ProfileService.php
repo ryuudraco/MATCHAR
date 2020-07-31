@@ -8,6 +8,9 @@ use Src\Utils\Validator;
 use Src\Utils\DB;
 use Src\DAO\UserDAO;
 use Src\DAO\LikesDAO;
+use Src\DAO\HistoryDAO;
+use Src\DAO\HistoryUserDAO;
+
 
 class ProfileService extends Service 
 {
@@ -19,6 +22,10 @@ class ProfileService extends Service
 		if($this->request->getAttribute('username') !== null && !empty($this->request->getAttribute('username'))) {
 			//we are actually viewing someone elses profile
 			$user = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
+			$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+			if($user->getId() != $_SESSION['user_id']) {
+				HistoryDAO::insertHistoryAction($user, $origin, 'viewed');
+			}
 		} else {
 			$user = UserDAO::fetch([$_SESSION['user_id']], 'ID');
 		}
@@ -33,7 +40,8 @@ class ProfileService extends Service
 			$liked = true;
 		}
 
-		$params = ['user' => $user, 'count' => $likes, 'liked' => $liked ];
+		$history = HistoryUserDAO::getHistory($user);
+		$params = ['user' => $user, 'count' => $likes, 'liked' => $liked, 'history' => $history ];
 		return $this->render('profile.html', $params);
 	}
 
