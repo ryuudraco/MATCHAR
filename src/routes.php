@@ -124,6 +124,11 @@ $app->post('/request-password', function (Request $request, Response $response) 
 	return $service->handleRequestPost();
 });
 
+$app->get('/notifications', function(Request $request, Response $response) use($app) {
+	$service = new \Src\Services\NotificationService($app->getContainer(), $request, $response);
+	return $service->fetchNotifications();
+});
+
 //factory route
 $app->get('/factory', function () {
 	$factory = new \Src\Factory\UserFactory();

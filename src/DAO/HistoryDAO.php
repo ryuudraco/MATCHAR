@@ -33,8 +33,26 @@ class HistoryDAO extends DB {
         parent::execute($sql, $values);
     }
 
+    public static function updateHistory(UserBean $target, UserBean $origin, String $action) {
+        
+        $sql = "UPDATE history SET status = 1 WHERE origin_id = :origin AND target_id = :target AND action = :action";
+
+        $values = [
+            'origin' => $origin->getId(),
+            'target' => $target->getId(),
+            'action' => $action
+        ];
+        parent::execute($sql, $values);
+    }
+
+
     public static function getHistory(UserBean $target): Array {
         $history = parent::selectQuery("SELECT * FROM history WHERE target_id = ?", HistoryBean::class, [$target->getId()]);
+        return $history;
+    }
+
+    public static function getUnseenHistory(UserBean $target): Array {
+        $history = parent::selectQuery("SELECT * FROM history WHERE target_id = ? AND status = 0", HistoryBean::class, [$target->getId()]);
         return $history;
     }
 

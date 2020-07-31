@@ -8,6 +8,7 @@ class HistoryBean {
     private $origin_id;
 	private $target_id;
 	private $action;
+	private $status;
     private $created_at;
     private $updated_at;
 
@@ -43,6 +44,14 @@ class HistoryBean {
 		$this->action = $action;
 	}
 	
+	public function getStatus(): ?boolean {
+		return $this->status;
+	}
+
+	public function setStatus(boolean $status){
+		$this->status = $satus;
+	}
+
 	public function getCreated_at(): ?String {
 		return $this->created_at;
 	}

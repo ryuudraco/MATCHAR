@@ -4,6 +4,7 @@ create table `history` (
 	`origin_id` int unsigned not null, 
 	`target_id` int unsigned not null, 
 	`action` varchar(10) not null,
+	`status` boolean not null default 0,
 
 	`created_at` timestamp default current_timestamp, 
 	`updated_at` timestamp default current_timestamp,
