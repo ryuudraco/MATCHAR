@@ -10,14 +10,14 @@ use Src\Beans\BlocksBean;
 class BlocksDAO extends DB {
 
     public static function countAllUserReceivedBlocks(UserBean $user): int {
-        $count = parent::select("SELECT count(id) as count FROM blocks WHERE target_id = ?", [$user->getId()]);
-        return $count[0]['count'];
+        $countBlocks = parent::select("SELECT count(id) as count FROM blocks WHERE target_id = ?", [$user->getId()]);
+        return $countBlocks[0]['count'];
     }
 
     public static function getAllTotals() {
-        $count = parent::selectQuery("SELECT count(target_id) as total, target_id from blocks group by target_id", BlocksBean::class);
-        print_r($count);
-        return $count;
+        $countBlocks = parent::selectQuery("SELECT count(target_id) as total, target_id from blocks group by target_id", BlocksBean::class);
+        print_r($countBlocks);
+        return $countBlocks;
     }
 
     public static function getBlock(UserBean $target, UserBean $origin): Array {

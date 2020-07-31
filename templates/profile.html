@@ -201,24 +201,14 @@
                         <div class="col-md-6 offset-md-3">
                             <h4>History</h4>
                             <ul class="timeline">
-                                <!-- for loop history chan -->
-                                    <!-- if user viewed profile -->
-                                    <li>
-                                        <p class="float-right">21 March, 2014</p>
-                                        <p>Your profile has been viewed by (person).</p>
-                                    </li>
-                                    <!-- else if user liked profile -->
-                                    <li>
-                                        <p class="float-right">21 March, 2014</p>
-                                        <p>Your profile has been liked by (person).</p>
-                                    </li>
-                                    <!-- else if user matches with you (both people like each other's profiles) -->
-                                    <li>
-                                        <p class="float-right">21 March, 2014</p>
-                                        <p>You have been matched with (person)</p>
-                                    </li>
-                                    <!-- endif -->
-                                <!-- endfor -->
+                                {% if history is defined and user.id == USER_ID %}
+                                    {% for result in history %}
+                                        <li>
+                                            <p class="float-right">{{ result.history.created_at }}</p>
+                                            <p>Your profile has been {{ result.history.action }}d by {{ result.user.username }}.</p>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

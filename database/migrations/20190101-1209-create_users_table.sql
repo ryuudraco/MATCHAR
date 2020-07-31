@@ -21,7 +21,7 @@
  	`country` varchar(255) null, 
  	`postal_code` varchar(255) null,
 
-	'fame_rating' int unsigned,
+	`fame_rating` int unsigned not null default 1,
 
  	`avatar_image` varchar(255) null, 
  	`gender_id` int unsigned null, 
