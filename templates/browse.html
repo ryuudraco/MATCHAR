@@ -91,7 +91,9 @@
         <div class="tab-pane fade in active" id="pills-browse-all" role="tabpanel" aria-labelledby="pills-browse-all">
           <div class="card-deck row-cols-4">
             {% for user in users %}
-              {% include 'layouts/card.html' %}
+              {% if user.id != USER_ID %}
+                {% include 'layouts/card.html' %}
+              {% endif %}
             {% endfor %}
           </div>
         </div>
@@ -100,8 +102,10 @@
         <div class="tab-pane fade" id="pills-browse-females" role="tabpanel" aria-labelledby="pills-browse-females">
           <div class="card-deck row-cols-4">
             {% for user in users %}
-              {% if user.gender_id == 0 %}
-                {% include 'layouts/card.html' %}
+              {% if user.id != USER_ID %}
+                {% if user.gender_id == 0 %}
+                  {% include 'layouts/card.html' %}
+                {% endif %}
               {% endif %}
             {% endfor %}
           </div>
@@ -111,8 +115,10 @@
         <div class="tab-pane fade" id="pills-browse-males" role="tabpanel" aria-labelledby="pills-browse-males">
           <div class="card-deck row-cols-4">
             {% for user in users %}
-              {% if user.gender_id == 1 %}
-                {% include 'layouts/card.html' %}
+              {% if user.id != USER_ID %}
+                {% if user.gender_id == 1 %}
+                  {% include 'layouts/card.html' %}
+                {% endif %}  
               {% endif %}
             {% endfor %}
           </div>
@@ -122,10 +128,12 @@
           <div class="tab-pane fade" id="pills-browse-others" role="tabpanel" aria-labelledby="pills-browse-others">
             <div class="card-deck row-cols-4">
               {% for user in users %}
+              {% if user.id != USER_ID %}
                 {% if user.gender_id == 2 %}
                   {% include 'layouts/card.html' %}
-                {% endif %}
-              {% endfor %}
+                {% endif %}  
+              {% endif %}
+            {% endfor %}
             </div>
           </div>
 
