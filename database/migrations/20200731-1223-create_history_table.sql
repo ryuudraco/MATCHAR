@@ -7,5 +7,5 @@ create table `history` (
 	`status` boolean not null default 0,
 
 	`created_at` timestamp default current_timestamp, 
-	`updated_at` timestamp default current_timestamp,
+	`updated_at` timestamp default current_timestamp
 )
