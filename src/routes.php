@@ -67,6 +67,10 @@ $app->post('/profile/{username}/like', function (Request $request, Response $res
 		$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
 		return $service->giveALikeOrUnlike();
 });
+$app->post('/profile/{username}/block', function (Request $request, Response $response, $params) use ($app) {
+	$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
+	return $service->giveABlockOrUnblock();
+});
 
 ########################### MILESTONE 3 ##########################################################
 

@@ -5,6 +5,7 @@ use Src\Utils\DB;
 use Src\Beans\UserBean;
 use Src\Utils\Crypt;
 use Src\DAO\LikesDAO;
+use Src\DAO\BlocksDAO;
 
 class UserDAO extends DB {
 

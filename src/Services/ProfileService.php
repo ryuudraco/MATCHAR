@@ -8,6 +8,7 @@ use Src\Utils\Validator;
 use Src\Utils\DB;
 use Src\DAO\UserDAO;
 use Src\DAO\LikesDAO;
+use Src\DAO\BlocksDAO;
 
 class ProfileService extends Service 
 {
@@ -24,6 +25,8 @@ class ProfileService extends Service
 		}
 		$likes = LikesDAO::countAllUserReceivedLikes($user);
 		$myLike = LikesDAO::getLike($user, UserDAO::fetch([$_SESSION['user_id']], 'ID'));
+		$blocks = BlocksDAO::countAllUserReceivedBlocks($user);
+		$myBlock = BlocksDAO::getBlock($user, UserDAO::fetch([$_SESSION['user_id']], 'ID'));
 
 		//to display on a button whether profile was already liked or not
 		$liked = false;
@@ -33,7 +36,14 @@ class ProfileService extends Service
 			$liked = true;
 		}
 
-		$params = ['user' => $user, 'count' => $likes, 'liked' => $liked ];
+		$blocked = false;
+		if(empty($myBlock)) {
+			$blocked = false;
+		} else {
+			$blocked = true;
+		}
+
+		$params = ['user' => $user, 'count' => $likes, 'liked' => $liked, 'countBlock' => $blocks, 'blocked' => $blocked];
 		return $this->render('profile.html', $params);
 	}
 
@@ -63,6 +73,15 @@ class ProfileService extends Service
 		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
 
 		LikesDAO::likeUnlikeProfile($target, $origin);
+
+		return $this->redirect('/profile/' . $target->getUsername());
+	}
+
+	public function giveABlockOrUnblock() {
+		$target = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
+		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+
+		BlocksDAO::blockUnblockProfile($target, $origin);
 
 		return $this->redirect('/profile/' . $target->getUsername());
 	}

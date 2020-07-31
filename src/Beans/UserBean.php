@@ -26,6 +26,7 @@ class UserBean {
     private $created_at;
 	private $updated_at;
 	private $likes;
+	private $blocks;
 
     public function getId(): ?int {
 		return $this->id;
@@ -201,6 +202,14 @@ class UserBean {
 
 	public function getLikes(): ?int {
 		return $this->likes;
+	}
+
+	public function setBlocks(int $blocks) {
+		$this->blocks = $blocks;
+	}
+
+	public function getBlocks(): ?int {
+		return $this->blocks;
 	}
     
 
