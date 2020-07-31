@@ -32,6 +32,17 @@ class LikesDAO extends DB {
         if(empty($like)) {
             $sql = "INSERT INTO likes (origin_id, target_id) VALUES (:origin, :target)";
             HistoryDAO::insertHistoryAction($target, $origin, 'liked');
+
+            $likeBack = self::getLike($origin, $target);
+            //we liked back someone who liked us before
+            if(!empty($likeBack)) {
+                //their profile
+                HistoryDAO::insertHistoryAction($target, $origin, 'matched');
+    
+                //our profile
+                HistoryDAO::insertHistoryAction($origin, $target, 'matched');
+            }
+            
         } else {
             $sql = "DELETE FROM likes WHERE origin_id = :origin AND target_id = :target";
             HistoryDAO::deleteHistoryAction($target, $origin, 'liked');

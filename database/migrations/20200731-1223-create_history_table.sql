@@ -3,8 +3,8 @@ create table `history` (
 
 	`origin_id` int unsigned not null, 
 	`target_id` int unsigned not null, 
-	`action` varchar(5) not null,
+	`action` varchar(10) not null,
 
 	`created_at` timestamp default current_timestamp, 
-	`updated_at` timestamp null
+	`updated_at` timestamp default current_timestamp,
 )
