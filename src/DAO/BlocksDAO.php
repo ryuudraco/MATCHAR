@@ -20,6 +20,11 @@ class BlocksDAO extends DB {
         return $countBlocks;
     }
 
+    public static function getAllBlockedUsersForOrigin(UserBean $user): ?Array {
+        $blocks = parent::selectQuery("SELECT * FROM blocks WHERE origin_id = ?", BlocksBean::class, [$user->getId()]);
+        return $blocks;
+    }
+
     public static function getBlock(UserBean $target, UserBean $origin): Array {
         $blocks = parent::select("SELECT * FROM blocks WHERE target_id = ? AND origin_id = ?", [$target->getId(), $origin->getId()]);
         return $blocks;
