@@ -21,7 +21,7 @@ class BlocksDAO extends DB {
     }
 
     public static function getBlock(UserBean $target, UserBean $origin): Array {
-        $blocks = parent::select("SELECT * FROM Blocks WHERE target_id = ? AND origin_id = ?", [$target->getId(), $origin->getId()]);
+        $blocks = parent::select("SELECT * FROM blocks WHERE target_id = ? AND origin_id = ?", [$target->getId(), $origin->getId()]);
         return $blocks;
     }
 
