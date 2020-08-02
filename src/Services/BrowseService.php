@@ -30,7 +30,11 @@ class BrowseService extends Service
 		$allNotBlockedUsers = rtrim($allNotBlockedUsers, ',');
 
 		//get all users (not blocked ones)
-		$users = UserDAO::getAllWhere("id NOT IN(" . $allNotBlockedUsers . ")");
+		if(strlen($allNotBlockedUsers > 0)) {
+			$users = UserDAO::getAllWhere("id NOT IN(" . $allNotBlockedUsers . ")");
+		} else {
+			$users = UserDAO::getAll();
+		}
 
 		$params = [ 'users' => $users ];
 		return $this->render('browse.html', $params);
