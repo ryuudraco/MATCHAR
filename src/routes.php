@@ -85,6 +85,15 @@ $app->post('/messages', function (Request $request, Response $response) use ($ap
 	return $service->test();
 });
 
+$app->get('/messages/thread/{id}', function (Request $request, Response $response, $params) use ($app) {
+	$service = new \Src\Services\MessagesService($app->getContainer(), $request, $response, $params);
+	return $service->viewMessages();
+});
+//$app->post('/profile/{username}/like', function (Request $request, Response $response, $params) use ($app) {
+		//$service = new \Src\Services\ProfileService($app->getContainer(), $request, $response, $params);
+		//return $service->giveALikeOrUnlike();
+//});
+
 $app->get('/messages/{username}', function (Request $request, Response $response, $params) {
 	echo '@todo - view my messages with another member';
 });
