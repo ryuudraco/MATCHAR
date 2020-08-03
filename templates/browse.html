@@ -20,10 +20,10 @@
         </li>
         <ul class="float-right">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" name="sortByAge" id="sortByAge" class="btn btn-secondary">Age</button>
-            <button type="button" name="sortByTags" id="sortByFame" class="btn btn-secondary">Fame</button>
-            <button type="button" name="sortByLocation" id="sortByLocation" class="btn btn-secondary">Location</button>
-            <button type="button" name="sortByTags" id="sortByTags" class="btn btn-secondary">Tags</button>
+            <button type="button" onclick="sort('age')" name="sortByAge" id="sortByAge" class="btn btn-secondary">Age</button>
+            <button type="button" onclick="sort('fame')" name="sortByTags" id="sortByFame" class="btn btn-secondary">Fame</button>
+            <button type="button" onClick="sortLocation()" name="sortByLocation" id="sortByLocation" class="btn btn-secondary">Location</button>
+            <button type="button" onClick="sortTags()" name="sortByTags" id="sortByTags" class="btn btn-secondary">Tags</button>
           </div>
         </ul>
       </ul>
@@ -85,6 +85,12 @@
       </div>
     </div> 
     
+      {% for user in users %}
+        {% if user.id == USER_ID %}
+        <div hidden class="ourProfile profileCard" data-age="{{ user.age }}" data-fame="{{ user.fame_rating }}" data-city="{{ user.city }}" data-province="{{ user.province }}" data-country="{{ user.country }}" data-interests="{{ user.interests }}">
+        </div>
+        {% endif %}
+      {% endfor %}
       
       <div class="tab-content" id="pills-tabContent">
         <!-- All Members Cards -->

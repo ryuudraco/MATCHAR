@@ -1,4 +1,4 @@
-<div class="mb-4">
+<div class="mb-4 profileCard" data-age="{{ user.age }}" data-fame="{{ user.fame_rating }}" data-city="{{ user.city }}" data-province="{{ user.province }}" data-country="{{ user.country }}" data-interests="{{ user.interests }}">
     <!-- if user.block >= 5 add class border-danger -->
     <div class="card {% if user.blocked == 1 %} d-none {% endif %}" style="width: 16rem;">
       <img src="{{ user.avatar_image }}" class="card-img-top" alt="Avatar">

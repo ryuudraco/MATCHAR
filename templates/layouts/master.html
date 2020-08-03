@@ -43,6 +43,40 @@
             var interval = window.setInterval('getNotification()', 1000);
         </script>
 
+        <script>
+            function sort(data) {
+                $('.card-deck').each(function () {
+                    $(this).html($(this).children('div').sort(function (a, b) {
+                        return ($(b).data(data)) < ($(a).data(data)) ? 1 : -1
+                    }))
+                })
+            }
+
+            function sortLocation() {
+                var ourCity = $('.ourProfile').data('city')
+                var ourProvince = $('.ourProfile').data('province')
+                var ourCountry = $('.ourProfile').data('country')
+
+                $('.card-deck').each(function () {
+                    $(this).html($(this).children('div').sort(function (a, b) {
+                        return ($(b).data('city')) == ourCity ? 1 : ($(b).data('province')) == ourProvince ? 1 : ($(b).data('country')) == ourCountry ? 1 : -1
+                    }))
+                })
+            }
+
+            function sortTags() {
+                var ourInterests = $('.ourProfile').data('interests').split(', ')
+
+                $('.card-deck').each(function () {
+                    $(this).html($(this).children('div').sort(function (a, b) {
+                        var interestsArray = $(b).data('interests').split(', ')
+                        var intersects = interestsArray.filter(element => ourInterests.includes(element));
+                        return (intersects.length) > 0 ? 1 : -1
+                    }))
+                })
+            }
+        </script>
+
 
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script> -->
 
