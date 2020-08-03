@@ -22,4 +22,13 @@ class FameDAO extends DB {
         $data['fame_rating'] = $fame;
         UserDAO::updateOne($data, $rating);
     }
+
+    public static function removeFame(UserBean $rating) {
+        $fame = $rating->getFame_rating();
+        $fame = $fame - 10;
+        $data = [];
+        $data['fame_rating'] = $fame;
+        UserDAO::updateOne($data, $rating);
+    }
+
 }
