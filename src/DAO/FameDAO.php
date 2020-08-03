@@ -10,25 +10,16 @@ use Src\Beans\FameBean;
 
 class FameDAO extends DB {
 
-    public static function insertFame(UserBean $rating) {
-        
-        $sql = "INSERT INTO users (fame_rating) VALUES (:rating)";
-
-        $values = [
-            'rating' => $rating->getId(),
-        ];
-        parent::execute($sql, $values);
-    }
-
     public static function getFame(UserBean $rating): Array {
-        $fame = parent::selectQuery("SELECT * FROM users WHERE fame_rating = ?", UserBean::class, getFame());
+        $fame = parent::selectQuery("SELECT * FROM users WHERE fame_rating = ?", UserBean::class, $rating->getFame());
         return $fame;
     }
 
-    public static function addFame(UserBean $rating, UserBean $user, UserBean $likes) {
-        $fame = UserBean::getFame($rating);
-
-        if ($user )
+    public static function addFame(UserBean $rating) {
+        $fame = $rating->getFame();
+        $fame = $fame + 10;
+        $data = [];
+        $data['fame_rating'] = $fame;
+        UserDAO::update($data);
     }
-
 }

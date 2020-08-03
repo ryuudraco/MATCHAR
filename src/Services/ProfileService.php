@@ -12,6 +12,7 @@ use Src\DAO\LikesDAO;
 use Src\DAO\BlocksDAO;
 use Src\DAO\HistoryDAO;
 use Src\DAO\HistoryUserDAO;
+use Src\DAO\FameDAO;
 
 
 class ProfileService extends Service 
@@ -80,8 +81,10 @@ class ProfileService extends Service
 	public function giveALikeOrUnlike() {
 		$target = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
 		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+		$rating = FameDAO::getFame($target);
 
 		LikesDAO::likeUnlikeProfile($target, $origin);
+		FameDAO::addFame($rating);
 
 		return $this->redirect('/profile/' . $target->getUsername());
 	}

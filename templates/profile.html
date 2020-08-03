@@ -86,9 +86,9 @@
                             <div class="form-group">
                                 <label for="likes">Likes: {{ user.likes }}</label>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="fame_rating">Fame rating: {{ user.fame_rating }}</label>
-                            </div> -->
+                            </div>
                             {% if user.id != USER_ID %}
                             <form method="post" id="form" action="/profile/{{user.username}}/like" >
                                 <div class="float-left">
