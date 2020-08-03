@@ -12,7 +12,7 @@
         {% if user.id != USER_ID %}
         <form method="post" id="form" action="/profile/{{user.username}}/like" >
             <div class="float-left">
-                <button type="submit" name="like" class="btn btn-primary">{% if user.liked == 1 %} Unlike {% elseif liked != 1 %} Like {% endif %}</button>
+                <button type="submit" name="like" class="btn btn-primary">{% if user.liked == 1 %} Unlike {% else %} Like {% endif %}</button>
             </div>
         </form>
         <form method="post" id="form" action="/profile/{{user.username}}/block" >

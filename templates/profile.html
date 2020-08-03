@@ -97,7 +97,7 @@
                             </form>
                             <form method="post" id="form" action="/profile/{{user.username}}/block" >
                                 <div class="float-left">
-                                    <button type="submit" name="register" class="btn btn-primary">{% if blocked == 1 %} Unblock {% elseif liked != 1 %} Block {% endif %}</button>
+                                    <button type="submit" name="register" class="btn btn-primary">{% if blocked == 1 %} Unblock {% else %} Block {% endif %}</button>
                                 </div>
                             </form>
                             <div class="float-right">

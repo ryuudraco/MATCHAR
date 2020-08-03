@@ -28,7 +28,7 @@ class FameDAO extends DB {
     public static function addFame(UserBean $rating, UserBean $user, UserBean $likes) {
         $fame = UserBean::getFame($rating);
 
-        
+        if ($user )
     }
 
 }

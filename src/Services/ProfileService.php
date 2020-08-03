@@ -6,6 +6,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Src\Utils\Validator;
 use Src\Utils\DB;
+use Src\Utils\Mail;
 use Src\DAO\UserDAO;
 use Src\DAO\LikesDAO;
 use Src\DAO\BlocksDAO;
@@ -90,7 +91,20 @@ class ProfileService extends Service
 		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
 
 		BlocksDAO::blockUnblockProfile($target, $origin);
+		$blockCount = BlocksDAO::countAllUserReceivedBlocks($target);
 
+		if ($blockCount >= 5) {
+			Mail::send(
+				'Your profile has been reported',
+				[
+					'no-reply@dating-app.com' => 'Dating App - No Reply',
+				],
+				[
+					$target->getEmail() => $target->getFirst_name() . ' ' . $target->getLast_name(),
+				],
+				'Your profile has received too many blocks and has been reported, it will be investigated for fraudulent use.'
+			);
+		}
 		return $this->redirect('/profile/' . $target->getUsername());
 	}
 }
