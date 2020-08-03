@@ -47,7 +47,7 @@
             function sort(data) {
                 $('.card-deck').each(function () {
                     $(this).html($(this).children('div').sort(function (a, b) {
-                        return ($(b).data(data)) < ($(a).data(data)) ? 1 : -1
+                        return ($(b).data(data)) > ($(a).data(data)) ? 1 : -1
                     }))
                 })
             }
