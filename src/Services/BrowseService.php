@@ -40,24 +40,111 @@ class BrowseService extends Service
 		return $this->render('browse.html', $params);
 	}
 
-	/**
-	 * try login the user using the username and password.
-	 * if fail, render the login page with the error
-	 * if success, redirect to member list
-	 */
-	public function handlePost() {
-		$fields = $this->request->getParsedBody();
-		$validation_result = Validator::validate($fields, [
-			'username' => 'required|string',
-			'password' => 'required',
+	public function search() {
+		$fields = $this->input([
+			'selectAgeRange',
+			'selectFameRatingGap',
+			'city',
+			'province',
+			'country',
+			'interests'
 		]);
 
-		if ($validation_result !== true) {
-			print_r($validation_result);die();
-			// return $this->render('login', ['validation_result' => $validation_result]);
+		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+
+		$q = "";
+		foreach($fields as $field => $val) {
+			if(!empty($val) && $val != 'Select Age Range' && $val != 'Select Fame Rating Gap') {
+				if($field == 'selectAgeRange') {
+					$str = str_replace(' years', '', $val);
+					if(strpos($str, '-') !== false) {
+						$age = explode('-', $str);
+						$q .= " age BETWEEN " . ($origin->getAge() + $age[0]) . " AND " . ($origin->getAge() + $age[1]);
+					}
+
+					else if(is_numeric($str)) {
+						$q .= " age >= " . ($origin->getAge() + $str);
+					} 
+					else {
+						$str = str_replace(' year', '', $val);
+						$q .= " age >= " . ($origin->getAge() + $str);
+					}
+
+				}
+				if($field == 'selectFameRatingGap') {
+					if(strpos($val, '+')) {
+						$fame = str_replace('+', '', $val);
+						if(empty($q)) {
+							$q .= " fame_rating >= " . $origin->getFame_rating() + $fame;
+						} else {
+							$q .= " AND fame_rating >= " . $origin->getFame_rating() + $fame;
+						}
+					}
+					else {
+						$fame = explode('-', $val);
+						if(empty($q)) {
+							$q .= " fame_rating BETWEEN " . $origin->getFame_rating() + $fame[0] . " AND " . $origin->getFame_rating() + $fame[1];
+						} else {
+							$q .= " AND fame_rating BETWEEN " . ($origin->getFame_rating() + $fame[0]) . " AND " . ($origin->getFame_rating() + $fame[1]);
+						}
+					}
+				}
+
+
+				if($field == 'city' && !empty($val)) {
+					if(empty($q)) {
+						$q .= " city = '" . $val . "'";
+					} else {
+						$q .= " AND city = '" . $val . "'";
+					}
+				}
+
+				if($field == 'province'  && !empty($val)) {
+					if(empty($q)) {
+						$q .= " province = '" . $val . "'";
+					} else {
+						$q .= " AND province = '" . $val ."'";
+					}
+				}
+
+				if($field == 'country'  && !empty($val)) {
+					if(empty($q)) {
+						$q .= " country = '" . $val . "'";
+					} else {
+						$q .= " AND country = '" . $val . "'";
+					}
+				}
+
+				if($field == 'interests'  && !empty($val)) {
+					if(empty($q)) {
+						$q .= " interests LIKE \"%" . $val . "%\"";
+					} else {
+						$q .= " AND interests LIKE \"%" . $val . "%\"";
+					}
+				}
+			}
+		}
+		echo $q;
+
+		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
+		//get blocks
+		$blockedUsers = BlocksDAO::getAllBlockedUsersForOrigin($origin);
+
+		$allNotBlockedUsers = "";
+
+		foreach($blockedUsers as $blockedUser) {
+			$allNotBlockedUsers .= $blockedUser->getTarget_id() . ",";
 		}
 
-		# proceed with login
-		echo '@todo - login the user and take them to their profile';
+		$allNotBlockedUsers = rtrim($allNotBlockedUsers, ',');
+
+		if(strlen($allNotBlockedUsers > 0)) {
+			$users = UserDAO::getAllWhere("id NOT IN(" . $allNotBlockedUsers . ")");
+		} else {
+			$users = UserDAO::getAllWhere($q);
+		}
+
+		$params = [ 'users' => $users ];
+		return $this->render('browse.html', $params);
 	}
 }

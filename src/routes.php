@@ -105,6 +105,10 @@ $app->get('/browse', function (Request $request, Response $response) use ($app) 
 	$service = new \Src\Services\BrowseService($app->getContainer(), $request, $response);
 	return $service->viewPage();
 });
+$app->post('/browse', function (Request $request, Response $response) use ($app) {
+	$service = new \Src\Services\BrowseService($app->getContainer(), $request, $response);
+	return $service->search();
+});
 
 ############################ MILESTONE 5 ##############################################################
 

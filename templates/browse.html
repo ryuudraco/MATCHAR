@@ -35,12 +35,12 @@
       <div class="dropdown-menu dropdown-lg" aria-labelledby="dropdownMenuButton">
         <section class="search-sec">
             <div class="container">
-                <form action="#" method="post" novalidate="novalidate">
+                <form action="/browse" method="post" novalidate="novalidate">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <select class="form-control search-slt" id="selectAgeRange">
+                                    <select class="form-control search-slt" id="selectAgeRange" name="selectAgeRange">
                                         <option>Select Age Range</option>
                                         <option>1 year</option>
                                         <option>2 years</option>
@@ -51,7 +51,7 @@
                                     </select> 
                                 </div>
                                  <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <select class="form-control search-slt" id="selectFameRatingGap">
+                                    <select class="form-control search-slt" id="selectFameRatingGap" name="selectFameRatingGap">
                                         <option>Select Fame Rating Gap</option>
                                         <option>1-20</option>
                                         <option>21-40</option>
@@ -62,19 +62,19 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <input type="text" class="form-control search-slt" placeholder="Enter City">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter City" id="city" name="city">
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <input type="text" class="form-control search-slt" placeholder="Enter Province">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter Province" id="province" name="province">
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <input type="text" class="form-control search-slt" placeholder="Enter Country">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter Country" id="country" name="countrty">
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <input type="text" class="form-control search-slt" placeholder="Enter Interest">
+                                    <input type="text" class="form-control search-slt" placeholder="Enter Interest" id="interests" name="interests">
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                                    <button type="button" class="btn btn-primary wrn-btn">Search</button>
+                                    <button type="submit" class="btn btn-primary wrn-btn">Search</button>
                                 </div>
                             </div>
                         </div>
