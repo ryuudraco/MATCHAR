@@ -51,7 +51,7 @@ class ProfileService extends Service
 		} else {
 			$blocked = true;
 		}
-
+		
 		$history = HistoryUserDAO::getHistory($user);
 		$params = ['user' => $user, 'count' => $likes, 'liked' => $liked, 'history' => $history, 'countBlock' => $blocks, 'blocked' => $blocked ];
 		return $this->render('profile.html', $params);
@@ -81,10 +81,10 @@ class ProfileService extends Service
 	public function giveALikeOrUnlike() {
 		$target = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
 		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
-		$rating = FameDAO::getFame($target);
+		//$rating = FameDAO::getFame($target);
 
 		LikesDAO::likeUnlikeProfile($target, $origin);
-		FameDAO::addFame($rating);
+		FameDAO::addFame($target);
 
 		return $this->redirect('/profile/' . $target->getUsername());
 	}
