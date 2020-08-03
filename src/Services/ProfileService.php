@@ -81,7 +81,6 @@ class ProfileService extends Service
 	public function giveALikeOrUnlike() {
 		$target = UserDAO::fetch([$this->request->getAttribute('username')], 'username');
 		$origin = UserDAO::fetch([$_SESSION['user_id']], 'ID');
-		//$rating = FameDAO::getFame($target);
 
 		LikesDAO::likeUnlikeProfile($target, $origin);
 		FameDAO::addFame($target);
@@ -95,6 +94,7 @@ class ProfileService extends Service
 
 		BlocksDAO::blockUnblockProfile($target, $origin);
 		$blockCount = BlocksDAO::countAllUserReceivedBlocks($target);
+		FameDAO::removeFame($target);
 
 		if ($blockCount >= 5) {
 			Mail::send(
